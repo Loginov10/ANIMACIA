@@ -62,6 +62,26 @@ def Randm():#Оталкивается от кроёв
     pygame.display.flip()
     pygame.time.delay(10)
 
+def epileps():
+    global posX,posY, sammX, sammY
+    if posX>X-pilt.get_rect().width or posX<0:
+        sammX=-sammX
+    if posY>X-pilt.get_rect().height or posY<0:
+        sammY=-sammY 
+    if posY<0:
+        posY=0
+    elif posY>Y-pilt.get_rect().height:
+        posY=Y-pilt.get_rect().height
+
+    
+    if random.randint(0, 20) == 0:
+        sammY = random.choice([-1, -15])
+
+    posX+=sammX 
+    posY+=sammY
+    ekraan.blit(pilt,(posX,posY)) 
+    pygame.display.flip()
+    pygame.time.delay(10)
 
 pygame.init()
 X, Y = 640, 480
@@ -83,7 +103,7 @@ kell=pygame.time.Clock()
 
 lõpp=False
 kell=pygame.time.Clock()
-v=[Päri,Vastu,Randm]
+v=[epileps,Vastu,Päri]
 while not lõpp:
     kell.tick(400)
     events = pygame.event.get()
@@ -93,3 +113,4 @@ while not lõpp:
     random.choice(v)()
     ekraan.fill(fon)
 pygame.quit()
+
